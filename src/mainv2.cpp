@@ -3,19 +3,38 @@
 
 int main()
 {
-    //Set window
+    // Set window
     sf::RenderWindow window(sf::VideoMode({1920u, 1080u}), "Chessboard Display");
     window.setFramerateLimit(144);
 
-    //Load chessboard image
-    sf::Texture texture;
-    if (!texture.loadFromFile("Board.png"))
-        return -1; //Error if file not found
+    // Load chessboard image
+    sf::Texture boardTexture;
+    if (!boardTexture.loadFromFile("Board.png"))
+        return -1; // Error if file not found
 
-        //Create Sprite for texture
-    sf::Sprite sprite(texture);
+    sf::Sprite boardSprite(boardTexture);
 
-    //Main Loop
+    // Load pawn image
+    sf::Texture whitePawnTexture;
+    if (!whitePawnTexture.loadFromFile("WhitePawn.png"))
+        return -1; // Error if file not found
+
+    sf::Sprite whitePawnSprite(whitePawnTexture);
+
+    // Set pawn position (example: on e2 square, adjust as needed)
+    whitePawnSprite.setPosition(sf::Vector2f(127.f, 127.f));
+
+    // Load pawn image
+    sf::Texture blackPawnTexture;
+    if (!blackPawnTexture.loadFromFile("BlackPawn.png"))
+        return -1; // Error if file not found
+
+    sf::Sprite blackPawnSprite(blackPawnTexture);
+
+    // Set pawn position (example: on e2 square, adjust as needed)
+    blackPawnSprite.setPosition(sf::Vector2f(327.f, 327.f));
+
+    // Main Loop
     while (window.isOpen())
     {
         while (auto event = window.pollEvent())
@@ -27,7 +46,9 @@ int main()
         }
 
         window.clear();
-        window.draw(sprite);
+        window.draw(boardSprite); // Draw the chessboard
+        window.draw(whitePawnSprite);  // Draw the pawn
+        window.draw(blackPawnSprite);  // Draw the pawn
         window.display();
     }
 
